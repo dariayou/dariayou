@@ -2,6 +2,8 @@ from tkinter import *
 import time
 import random
 
+
+#Создание окна приложения
 root = Tk()
 root.title("Bounce Ball")
 root.geometry("500x570")
@@ -13,7 +15,7 @@ score = Label(height=50, width=80, text="Score: 00", font="Calibri 14 italic")
 score.pack(side="left")
 root.update()
 
-
+#Создание класса, в котором определены холст (cvs), цвет (clr), поле (pole), мишени (stones) и счет (scre), начальные значения для движения мяча и его координаты на холсте
 class Ball:
     def __init__(self, cvs, clr, pole, stones, scre):
         self.stones = stones
@@ -33,6 +35,7 @@ class Ball:
         self.cvs_height = canvas.winfo_height()
         self.cvs_width = canvas.winfo_width()
 
+#Создание функции для обработки столкновений мяча и мишеней
     def stone_strike(self, push):
         for stone_line in self.stones:
             for stone in stone_line:
