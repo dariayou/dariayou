@@ -17,7 +17,7 @@ root.update()
 
 #Создание класса, в котором определены холст (cvs), цвет (clr), поле (pole), мишени (stones) и счет (scre), начальные значения для движения мяча и его координаты на холсте
 class Ball:
-    def __init__(self, cvs, clr, pole, stones, scre):
+    def init(self, cvs, clr, pole, stones, scre):
         self.stones = stones
         self.cvs = cvs
         self.pole = pole
@@ -52,7 +52,7 @@ class Ball:
                 except:
                     continue
         return False
-
+#Создание функции для обработки столкновений мяча и игрового поля
     def pole_strike(self, push):
         pole_push = self.cvs.coords(self.pole.id)
         if push[2] >= pole_push[0] and push[0] <= pole_push[2]:
@@ -60,7 +60,7 @@ class Ball:
 
                 return True
             return False
-
+#Создание функции, отвечающую за движение объекта на холсте
     def draw(self):
         self.cvs.move(self.id, self.a, self.b)
         push = self.cvs.coords(self.id)
@@ -80,9 +80,9 @@ class Ball:
         if self.pole_strike(push):
             self.b = -start[0]
 
-
+#Создание класса, в котором определены первоначальные значения игрового поля
 class Pole:
-    def __init__(self, cvs, clr):
+    def init(self, cvs, clr):
         self.cvs = cvs
         self.id = canvas.create_rectangle(0, 0, 100, 10, fill=clr)
         self.cvs.move(self.id, 200, 485)
@@ -113,16 +113,19 @@ class Pole:
         if self.pauseSeconds == 2:
             self.pauseSeconds = 0
 
-
+#Создание класса, в котором определены первоначальные значения мишеней
 class Stone:
-    def __init__(self, cvs, clr):
+    def init(self, cvs, clr):
         self.cvs = cvs
         self.id = canvas.create_oval(5, 5, 25, 25, fill=clr, width=2)
 
 
 playing = False
 
-
+#Создание игры, в которой игрок должен управлять шариком, отбивая его от платформы и собирая камни различных цветов.
+#При столкновении шарика с камнем, камень исчезает, а игрок получает очки.
+#Если шарик падает вниз и касается нижней границы холста, игра заканчивается.
+#Игрок может приостановить игру, нажав на клавишу "пауза"
 def start_game(event):
     global playing
     if playing is False:
@@ -186,7 +189,7 @@ def start_game(event):
                 root.update_idletasks()
                 root.update()
 
-
+#Создание запуска игры
 root.bind_all("<Return>", start_game)
 canvas.create_text(250, 250, text="Press Enter to start Game!!", fill="yellow", font="Calibri 18")
 j = canvas.find_all()
